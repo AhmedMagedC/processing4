@@ -1,14 +1,13 @@
 package processing.app;
 
-import processing.utils.Preferences;
 import processing.app.ui.Toolkit;
 
 import java.awt.*;
 
-public class AppPreferences extends Preferences {
+public class Preferences extends processing.utils.Preferences {
 
     static public void init() {
-        Preferences.init();
+        processing.utils.Preferences.init();
 
         // For CJK users, enable IM support by default
         if (Language.useInputMethod() && !getBoolean("editor.input_method_support")) {

@@ -28,7 +28,7 @@ import java.util.List;
 
 import processing.app.Base;
 import processing.app.Library;
-import processing.app.AppMessages;
+import processing.app.Messages;
 import processing.utils.Util;
 import processing.app.ui.Editor;
 import processing.core.PApplet;
@@ -191,7 +191,7 @@ public enum ContributionType {
       return null;
 
     } else if (folders.length > 1) {
-      AppMessages.log("More than one " + this + " found inside " + folder.getAbsolutePath());
+      Messages.log("More than one " + this + " found inside " + folder.getAbsolutePath());
     }
     return folders[0];
   }

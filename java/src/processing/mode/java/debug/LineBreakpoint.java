@@ -23,7 +23,7 @@ package processing.mode.java.debug;
 
 import java.util.List;
 
-import processing.app.AppMessages;
+import processing.app.Messages;
 
 import com.sun.jdi.AbsentInformationException;
 import com.sun.jdi.Location;
@@ -58,7 +58,7 @@ public class LineBreakpoint implements ClassLoadListener {
     this.dbg = dbg;
     this.className = className();
     set(); // activate the breakpoint (show highlight, attach if debugger is running)
-    AppMessages.log("LBP Created " + toString() + " class: " + this.className);
+    Messages.log("LBP Created " + toString() + " class: " + this.className);
   }
 
 
@@ -131,7 +131,7 @@ public class LineBreakpoint implements ClassLoadListener {
       log("attached breakpoint to " + line + " -> " + javaLine);
       return true;
     } catch (AbsentInformationException ex) {
-      AppMessages.err(null, ex);
+      Messages.err(null, ex);
     }
     return false;
   }
@@ -246,9 +246,9 @@ public class LineBreakpoint implements ClassLoadListener {
 
   private void log(String msg, Object... args) {
     if (args != null && args.length != 0) {
-      AppMessages.logf(getClass().getName() + " " + msg, args);
+      Messages.logf(getClass().getName() + " " + msg, args);
     } else {
-      AppMessages.log(getClass().getName() + " " + msg);
+      Messages.log(getClass().getName() + " " + msg);
     }
   }
 }

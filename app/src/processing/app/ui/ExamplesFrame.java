@@ -53,7 +53,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import processing.app.*;
-import processing.app.AppPreferences;
+import processing.app.Preferences;
 import processing.app.contrib.Contribution;
 import processing.app.contrib.ContributionManager;
 import processing.app.contrib.ContributionType;
@@ -225,8 +225,8 @@ public class ExamplesFrame extends JFrame {
     }
     s.setLength(s.length() - 1);  // nix that last separator
     String pref = "examples." + getClass().getName() + ".visible";
-    AppPreferences.set(pref, s.toString());
-    AppPreferences.save();
+    Preferences.set(pref, s.toString());
+    Preferences.save();
 //    System.out.println(s);
 //    System.out.println();
   }
@@ -234,7 +234,7 @@ public class ExamplesFrame extends JFrame {
 
   protected void restoreExpanded(JTree tree) {
     String pref = "examples." + getClass().getName() + ".visible";
-    String value = AppPreferences.get(pref);
+    String value = Preferences.get(pref);
     if (value != null) {
       String[] paths = PApplet.split(value, File.pathSeparator);
       for (String path : paths) {

@@ -162,9 +162,9 @@ class Schema {
                 }
                 ?: emptyMap()
             for ((key, value) in options){
-                AppPreferences.set(key, value)
+                Preferences.set(key, value)
             }
-            AppPreferences.save()
+            Preferences.save()
 
             return null
         }

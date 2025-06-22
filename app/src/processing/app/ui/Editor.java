@@ -50,7 +50,7 @@ import javax.swing.undo.*;
 
 import com.formdev.flatlaf.util.SystemInfo;
 import processing.app.*;
-import processing.app.AppPreferences;
+import processing.app.Preferences;
 import processing.app.contrib.ContributionManager;
 import processing.app.laf.PdeMenuItemUI;
 import processing.app.syntax.*;
@@ -308,9 +308,9 @@ public abstract class Editor extends JFrame implements RunnerListener {
 
     // Set the minimum size for the editor window
     int minWidth =
-      Toolkit.zoom(AppPreferences.getInteger("editor.window.width.min"));
+      Toolkit.zoom(Preferences.getInteger("editor.window.width.min"));
     int minHeight =
-      Toolkit.zoom(AppPreferences.getInteger("editor.window.height.min"));
+      Toolkit.zoom(Preferences.getInteger("editor.window.height.min"));
     setMinimumSize(new Dimension(minWidth, minHeight));
 
     // Bring back the general options for the editor
@@ -448,7 +448,7 @@ public abstract class Editor extends JFrame implements RunnerListener {
           }
         }
       } catch (Exception e) {
-        AppMessages.showWarning("Drag & Drop Problem",
+        Messages.showWarning("Drag & Drop Problem",
                              "An error occurred while trying to add files to the sketch.", e);
         return false;
       }
@@ -574,7 +574,7 @@ public abstract class Editor extends JFrame implements RunnerListener {
   /**
    * Read and apply new values from the preferences, either because
    * the app is just starting up, or the user just finished messing
-   * with things in the AppPreferences window.
+   * with things in the Preferences window.
    */
   public void applyPreferences() {
     // Even though this is only updating the theme (colors, icons),
@@ -872,14 +872,14 @@ public abstract class Editor extends JFrame implements RunnerListener {
   }
 
   protected void modifyFontSize(boolean increase){
-    var fontSize = AppPreferences.getInteger("editor.font.size");
+    var fontSize = Preferences.getInteger("editor.font.size");
     fontSize += increase ? 1 : -1;
     fontSize = Math.max(5, Math.min(72, fontSize));
-    AppPreferences.setInteger("editor.font.size", fontSize);
+    Preferences.setInteger("editor.font.size", fontSize);
     for (Editor editor : base.getEditors()) {
       editor.applyPreferences();
     }
-    AppPreferences.save();
+    Preferences.save();
   }
 
   abstract public JMenu buildSketchMenu();
@@ -902,7 +902,7 @@ public abstract class Editor extends JFrame implements RunnerListener {
       if (sketch.isUntitled() || sketch.isReadOnly()) {
         // Too weird to show the sketch folder when it's buried somewhere in an
         // OS-specific temp directory. TODO a better, and localized, message.
-        AppMessages.showMessage("Save First", "Please first save the sketch.");
+        Messages.showMessage("Save First", "Please first save the sketch.");
 
       } else {
         Platform.openFolder(sketch.getFolder());
@@ -917,7 +917,7 @@ public abstract class Editor extends JFrame implements RunnerListener {
         // Technically, this sketch either doesn't exist (it's untitled and
         // lives in a temp folder) or it shouldn't be overwritten/modified
         // (it's an example). Just ask the user to save. TODO same as above.
-        AppMessages.showMessage("Save First", "Please first save the sketch.");
+        Messages.showMessage("Save First", "Please first save the sketch.");
 
       } else {
         sketch.handleAddFile();
@@ -1909,7 +1909,7 @@ public abstract class Editor extends JFrame implements RunnerListener {
 
 
   public void handleIndentOutdent(boolean indent) {
-    int tabSize = AppPreferences.getInteger("editor.tabs.size");
+    int tabSize = Preferences.getInteger("editor.tabs.size");
     String tabString = Editor.EMPTY.substring(0, tabSize);
 
     startCompoundEdit();
@@ -2404,7 +2404,7 @@ public abstract class Editor extends JFrame implements RunnerListener {
         };
       }
     });
-    jtp.setFont(new Font(AppPreferences.get("editor.font.family"), Font.PLAIN, 10));
+    jtp.setFont(new Font(Preferences.get("editor.font.family"), Font.PLAIN, 10));
     jtp.setText(html.toString().replace("\n", "<br>") // Not in a <pre>.
         .replaceAll("(?<!&nbsp;)&nbsp;", " "));       // Allow line wrap.
 
@@ -2449,11 +2449,11 @@ public abstract class Editor extends JFrame implements RunnerListener {
 
     // Do this to advance/clear the terminal window / dos prompt / etc.
     // This may be useful especially when 'console.auto_clear' is false.
-    int headPadding = AppPreferences.getInteger("console.head_padding");
+    int headPadding = Preferences.getInteger("console.head_padding");
     for (int i = 0; i < headPadding; i++) console.message("\n", false);
 
     // clear the console on each run, unless the user doesn't want to
-    if (AppPreferences.getBoolean("console.auto_clear")) {
+    if (Preferences.getBoolean("console.auto_clear")) {
       console.clear();
     }
 
@@ -2473,7 +2473,7 @@ public abstract class Editor extends JFrame implements RunnerListener {
 
 //    // if an external editor is being used, need to grab the
 //    // latest version of the code from the file.
-//    if (AppPreferences.getBoolean("editor.external")) {
+//    if (Preferences.getBoolean("editor.external")) {
 //      sketch.reload();
 //    }
   }

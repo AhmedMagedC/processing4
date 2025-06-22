@@ -258,7 +258,7 @@ public class JavaMode extends Mode {
 
 
   public void loadPreferences() {
-    AppMessages.log("Load PDEX prefs");
+    Messages.log("Load PDEX prefs");
 
     errorCheckEnabled = Preferences.getBoolean(prefErrorCheck);
     warningsEnabled = Preferences.getBoolean(prefWarnings);
@@ -277,7 +277,7 @@ public class JavaMode extends Mode {
 
 
   public void savePreferences() {
-    AppMessages.log("Saving PDEX prefs");
+    Messages.log("Saving PDEX prefs");
 
     Preferences.setBoolean(prefErrorCheck, errorCheckEnabled);
     Preferences.setBoolean(prefWarnings, warningsEnabled);

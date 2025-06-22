@@ -33,7 +33,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
 import processing.app.Base;
-import processing.app.AppMessages;
+import processing.app.Messages;
 import processing.app.ui.About;
 import processing.core.PApplet;
 import processing.data.StringList;
@@ -47,13 +47,13 @@ public class MacPlatform extends DefaultPlatform {
   public void saveLanguage(String language) {
     String[] cmdarray = new String[]{
       "defaults", "write",
-      System.getProperty("user.home") + "/Library/AppPreferences/org.processing.app",
+      System.getProperty("user.home") + "/Library/Preferences/org.processing.app",
       "AppleLanguages", "-array", language
     };
     try {
       Runtime.getRuntime().exec(cmdarray);
     } catch (IOException e) {
-      AppMessages.log("Error saving platform language: " + e.getMessage());
+      Messages.log("Error saving platform language: " + e.getMessage());
     }
   }
 

@@ -107,7 +107,7 @@ public abstract class Mode {
         loadKeywords(file);
       }
     } catch (IOException e) {
-      AppMessages.showWarning("Problem loading keywords",
+      Messages.showWarning("Problem loading keywords",
                            "Could not load keywords file for " + getTitle() + " mode.", e);
     }
   }
@@ -371,7 +371,7 @@ public abstract class Mode {
         secondary += "<b>" + library.getName() + "</b> (" + location + ")<br>";
       }
       secondary += "Extra libraries need to be removed before this sketch can be used.";
-      AppMessages.showWarningTiered("Duplicate Library Problem", primary, secondary, null);
+      Messages.showWarningTiered("Duplicate Library Problem", primary, secondary, null);
       throw new SketchException("Duplicate libraries found for " + pkgName + ".");
 
     } else {
@@ -820,7 +820,7 @@ public abstract class Mode {
   public void prepareExportFolder(File targetFolder) {
     if (targetFolder != null) {
       // Nuke the old application folder because it can cause trouble
-      if (AppPreferences.getBoolean("export.delete_target_folder")) {
+      if (Preferences.getBoolean("export.delete_target_folder")) {
         if (targetFolder.exists()) {
           try {
             Platform.deleteFile(targetFolder);
@@ -833,7 +833,7 @@ public abstract class Mode {
       // Create a fresh output folder (needed before preproc is run next)
       if (!targetFolder.exists()) {
         if (!targetFolder.mkdirs()) {
-          AppMessages.err("Could not create " + targetFolder);
+          Messages.err("Could not create " + targetFolder);
         }
       }
     }

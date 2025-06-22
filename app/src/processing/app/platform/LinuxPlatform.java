@@ -26,7 +26,7 @@ import java.io.File;
 import java.awt.Desktop;
 import java.awt.Toolkit;
 
-import processing.app.AppPreferences;
+import processing.app.Preferences;
 import processing.app.Base;
 import processing.core.PApplet;
 
@@ -101,7 +101,7 @@ public class LinuxPlatform extends DefaultPlatform {
       super.openURL(url);
 
     } else if (openFolderAvailable()) {
-      String launcher = AppPreferences.get("launcher");  // guaranteed non-null
+      String launcher = Preferences.get("launcher");  // guaranteed non-null
       Runtime.getRuntime().exec(new String[] { launcher, url });
 
     } else {
@@ -112,7 +112,7 @@ public class LinuxPlatform extends DefaultPlatform {
 
   @Override
   public boolean openFolderAvailable() {
-    if (AppPreferences.get("launcher") != null) {
+    if (Preferences.get("launcher") != null) {
       return true;
     }
 
@@ -120,7 +120,7 @@ public class LinuxPlatform extends DefaultPlatform {
     try {
       Process p = Runtime.getRuntime().exec(new String[] { "xdg-open" });
       p.waitFor();
-      AppPreferences.set("launcher", "xdg-open");
+      Preferences.set("launcher", "xdg-open");
       return true;
     } catch (Exception ignored) { }
 
@@ -129,7 +129,7 @@ public class LinuxPlatform extends DefaultPlatform {
       Process p = Runtime.getRuntime().exec(new String[] { "gnome-open" });
       p.waitFor();
       // Not installed will throw an IOException (JDK 1.4.2, Ubuntu 7.04)
-      AppPreferences.set("launcher", "gnome-open");
+      Preferences.set("launcher", "gnome-open");
       return true;
     } catch (Exception ignored) { }
 
@@ -137,7 +137,7 @@ public class LinuxPlatform extends DefaultPlatform {
     try {
       Process p = Runtime.getRuntime().exec(new String[] { "kde-open" });
       p.waitFor();
-      AppPreferences.set("launcher", "kde-open");
+      Preferences.set("launcher", "kde-open");
       return true;
     } catch (Exception ignored) { }
 
@@ -151,7 +151,7 @@ public class LinuxPlatform extends DefaultPlatform {
       super.openFolder(file);
 
     } else if (openFolderAvailable()) {
-      String launcher = AppPreferences.get("launcher");
+      String launcher = Preferences.get("launcher");
       String[] params = new String[] { launcher, file.getAbsolutePath() };
       Runtime.getRuntime().exec(params);
 

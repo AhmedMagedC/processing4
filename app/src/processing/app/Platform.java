@@ -103,7 +103,7 @@ public class Platform {
       inst = (DefaultPlatform) platformClass.getDeclaredConstructor().newInstance();
 
     } catch (Exception e) {
-      AppMessages.showError("Problem Setting the Platform",
+      Messages.showError("Problem Setting the Platform",
                          "An unknown error occurred while trying to load\n" +
                          "platform-specific code for your machine.", e);
     }
@@ -163,7 +163,7 @@ public class Platform {
       inst.openURL(url);
 
     } catch (Exception e) {
-      AppMessages.showWarning("Problem Opening URL",
+      Messages.showWarning("Problem Opening URL",
                            "Could not open the URL\n" + url, e);
     }
   }
@@ -187,7 +187,7 @@ public class Platform {
       inst.openFolder(file);
 
     } catch (Exception e) {
-      AppMessages.showWarning("Problem Opening Folder",
+      Messages.showWarning("Problem Opening Folder",
                            "Could not open the folder\n" + file.getAbsolutePath(), e);
     }
   }
@@ -355,7 +355,7 @@ public class Platform {
       try {
         decodedPath = pathURL.toURI().getSchemeSpecificPart();
       } catch (URISyntaxException e) {
-        AppMessages.showError("Missing File",
+        Messages.showError("Missing File",
           "Could not access a required file:\n" +
             "<b>" + name + "</b>\n" +
             "You may need to reinstall Processing.", e);
@@ -582,7 +582,7 @@ public class Platform {
   // . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
   /**
-   * These methods were refactored to use the AppPreferences system instead of
+   * These methods were refactored to use the Preferences system instead of
    * actual environment variables, since modifying environment variables at runtime
    * proved problematic. This approach provides similar functionality
    * while being compatible with various platforms and execution environments.
@@ -592,11 +592,11 @@ public class Platform {
    */
 
   static public void setenv(String variable, String value) {
-    AppPreferences.set(variable, value);
+    Preferences.set(variable, value);
   }
 
   static public String getenv(String variable) {
-    return AppPreferences.get(variable);
+    return Preferences.get(variable);
   }
 
   static public int unsetenv(String variable) {

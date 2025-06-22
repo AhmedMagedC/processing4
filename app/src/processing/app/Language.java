@@ -126,7 +126,7 @@ public class Language {
         throw new IOException("Could not read list of files inside " + baseFolder);
       }
     } catch (IOException e) {
-      AppMessages.showError("Translation Trouble",
+      Messages.showError("Translation Trouble",
         "There was a problem reading the language translations folder.\n" +
         "You may need to reinstall, or report if the problem persists.", e);
     }
@@ -295,7 +295,7 @@ public class Language {
   }
 
 
-//  /** Set new language (called by AppPreferences) */
+//  /** Set new language (called by Preferences) */
 //  static public void setLanguage(String language) {
 //    this.language = language;
 //
@@ -353,7 +353,7 @@ public class Language {
       table = new HashMap<>();
 
       // Disabling load from sketchbook in 4.2.1, because the path
-      // is not yet loaded from AppPreferences when languages are loaded.
+      // is not yet loaded from Preferences when languages are loaded.
       // Fixing that (i.e. reloading languages) makes the code a lot
       // more complicated for dubious benefit over simply editing the
       // language files in the download (i.e. still would not help

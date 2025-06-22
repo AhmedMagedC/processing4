@@ -53,7 +53,7 @@ import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FileASTRequestor;
 
-import processing.app.AppMessages;
+import processing.app.Messages;
 import processing.app.Sketch;
 import processing.app.SketchCode;
 import processing.utils.Util;
@@ -117,7 +117,7 @@ public class PreprocService {
     running = true;
     PreprocSketch prevResult = null;
     CompletableFuture<?> runningCallbacks = null;
-    AppMessages.log("Hi!");
+    Messages.log("Hi!");
     while (running) {
       try {
         try {
@@ -127,7 +127,7 @@ public class PreprocService {
           break;
         }
 
-        AppMessages.log("Starting");
+        Messages.log("Starting");
 
         prevResult = preprocessSketch(prevResult);
 
@@ -143,15 +143,15 @@ public class PreprocService {
         synchronized (requestLock) {
           if (requestQueue.isEmpty()) {
             runningCallbacks = lastCallback;
-            AppMessages.log("Done");
+            Messages.log("Done");
             preprocessingTask.complete(prevResult);
           }
         }
       } catch (Exception e) {
-        AppMessages.err("problem in preprocessor service loop", e);
+        Messages.err("problem in preprocessor service loop", e);
       }
     }
-    AppMessages.log("Bye!");
+    Messages.log("Bye!");
   }
 
   /**
@@ -188,7 +188,7 @@ public class PreprocService {
    * Indicate to this service that the sketch libraries have changed.
    */
   public void notifyLibrariesChanged() {
-    AppMessages.log("notified libraries changed");
+    Messages.log("notified libraries changed");
     librariesChanged.set(true);
     notifySketchChanged();
   }
@@ -197,7 +197,7 @@ public class PreprocService {
    * Indicate to this service that the folder housing sketch code has changed.
    */
   public void notifyCodeFolderChanged() {
-    AppMessages.log("notified code folder changed");
+    Messages.log("notified code folder changed");
     codeFolderChanged.set(true);
     notifySketchChanged();
   }
@@ -216,7 +216,7 @@ public class PreprocService {
           .thenAcceptBothAsync(lastCallback, (ps, a) -> callback.accept(ps))
           // Make sure exception in callback won't cancel whole callback chain
           .handleAsync((res, e) -> {
-            if (e != null) AppMessages.err("exception in callback", e);
+            if (e != null) Messages.err("exception in callback", e);
             return res;
           });
       return lastCallback;
@@ -304,7 +304,7 @@ public class PreprocService {
       try {
         listener.accept(ps);
       } catch (Exception e) {
-        AppMessages.err("error when firing preprocessing listener", e);
+        Messages.err("error when firing preprocessing listener", e);
       }
     }
   }

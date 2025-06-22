@@ -96,7 +96,7 @@ public class ThemeSelector extends JFrame implements Tool {
         return false;
       });
       if (setFolders == null) {
-        AppMessages.showWarning("Could not load themes",
+        Messages.showWarning("Could not load themes",
           "The themes directory could not be read.\n" +
             "Please reinstall Processing.");
         return;
@@ -327,7 +327,7 @@ public class ThemeSelector extends JFrame implements Tool {
     if (userModifiedTheme()) {
       boolean success = Theme.archiveCurrent();
       if (!success) {
-        AppMessages.showWarning("Could not back up theme",
+        Messages.showWarning("Could not back up theme",
           "Could not save a backup of theme.txt in your sketchbook folder.\n" +
           "Rename it manually and try setting the theme again.");
         return;
@@ -340,10 +340,10 @@ public class ThemeSelector extends JFrame implements Tool {
     // No longer saving a new theme.txt when making a selection, just setting a
     // preference so that subsequent Processing updates load new theme changes.
     //Util.saveFile(currentSet.get(index), sketchbookFile);
-    AppPreferences.set("theme", currentSet.getPath(index));
+    Preferences.set("theme", currentSet.getPath(index));
     // On some machines, the theme wasn't getting saved; try an explicit save
     // https://github.com/processing/processing4/issues/565
-    AppPreferences.save();
+    Preferences.save();
     reloadTheme();
   }
 

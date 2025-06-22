@@ -35,9 +35,9 @@ import javax.swing.JMenuItem;
 import processing.app.Base;
 import processing.app.Language;
 import processing.app.Library;
-import processing.app.AppMessages;
+import processing.app.Messages;
 import processing.app.Mode;
-import processing.app.AppPreferences;
+import processing.app.Preferences;
 import processing.core.PApplet;
 
 
@@ -86,7 +86,7 @@ public class Recent {
           if (new File(line).exists()) {  // don't add ghost entries
             records.add(new Record(line));
           } else {
-            AppMessages.log("Ghost file found in recent: " + line);
+            Messages.log("Ghost file found in recent: " + line);
           }
         }
       }
@@ -241,7 +241,7 @@ public class Recent {
       remove(editor);
 
       // If the list is full, remove the first entry
-      if (records.size() == AppPreferences.getInteger("recent.count")) {
+      if (records.size() == Preferences.getInteger("recent.count")) {
         records.remove(0);  // remove the first entry
       }
 
@@ -252,7 +252,7 @@ public class Recent {
 
 
   synchronized static public void rename(Editor editor, String oldPath) {
-    if (records.size() == AppPreferences.getInteger("recent.count")) {
+    if (records.size() == Preferences.getInteger("recent.count")) {
       records.remove(0);  // remove the first entry
     }
     int index = findRecord(oldPath);

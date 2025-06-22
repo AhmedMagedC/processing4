@@ -29,7 +29,7 @@ import java.util.*;
 
 import processing.app.Base;
 import processing.app.Language;
-import processing.app.AppMessages;
+import processing.app.Messages;
 import processing.app.Platform;
 import processing.utils.Util;
 import processing.app.ui.Editor;
@@ -588,7 +588,7 @@ public class ContributionManager {
       //      where it's triggered most consistently, so it's here for now.
       if (Platform.isMacOS()) {
         // we're on the EDT here, so it's safe to show the error
-        AppMessages.showError("Cannot access sketchbook",
+        Messages.showError("Cannot access sketchbook",
           """
             There is a problem with the “permissions” for the sketchbook folder.
             Processing needs access to the Documents folder to save your work.
@@ -663,7 +663,7 @@ public class ContributionManager {
 
   static private void installOnStartUp(final Base base, final AvailableContribution availableContrib) {
     if (availableContrib.link == null) {
-      AppMessages.showWarning(Language.interpolate("contrib.errors.update_on_restart_failed", availableContrib.getName()),
+      Messages.showWarning(Language.interpolate("contrib.errors.update_on_restart_failed", availableContrib.getName()),
                            Language.text("contrib.missing_link"));
     } else {
       try {
@@ -671,7 +671,7 @@ public class ContributionManager {
         ContributionManager.downloadAndInstallOnStartup(base, downloadUrl, availableContrib);
 
       } catch (MalformedURLException e) {
-        AppMessages.showWarning(Language.interpolate("contrib.errors.update_on_restart_failed", availableContrib.getName()),
+        Messages.showWarning(Language.interpolate("contrib.errors.update_on_restart_failed", availableContrib.getName()),
                              Language.text("contrib.errors.malformed_url"), e);
       }
     }

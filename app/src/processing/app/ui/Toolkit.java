@@ -69,9 +69,9 @@ import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 
 import processing.app.Language;
-import processing.app.AppMessages;
+import processing.app.Messages;
 import processing.app.Platform;
-import processing.app.AppPreferences;
+import processing.app.Preferences;
 import processing.utils.Util;
 import processing.awt.PGraphicsJava2D;
 import processing.awt.PShapeJava2D;
@@ -133,7 +133,7 @@ public class Toolkit {
     String key = base + ".keystroke";
 
     // see if there's an override in preferences.txt
-    String sequence = AppPreferences.get(key);
+    String sequence = Preferences.get(key);
     if (sequence != null) {
       KeyStroke ks = KeyStroke.getKeyStroke(sequence);
       if (ks != null) {
@@ -585,7 +585,7 @@ public class Toolkit {
   static public ImageIcon getLibIcon(String filename) {
     File file = Platform.getContentFile("lib/" + filename);
     if (file == null || !file.exists()) {
-      AppMessages.err("does not exist: " + file);
+      Messages.err("does not exist: " + file);
       return null;
     }
     return new ImageIcon(file.getAbsolutePath());
@@ -1091,21 +1091,21 @@ public class Toolkit {
 
 
   static private float parseZoom() {
-    if (AppPreferences.getBoolean("editor.zoom.auto")) {
+    if (Preferences.getBoolean("editor.zoom.auto")) {
       float newZoom = Platform.getSystemZoom();
       String percentSel = ((int) (newZoom*100)) + "%";
-      AppPreferences.set("editor.zoom", percentSel);
+      Preferences.set("editor.zoom", percentSel);
       return newZoom;
 
     } else {
-      String zoomSel = AppPreferences.get("editor.zoom");
+      String zoomSel = Preferences.get("editor.zoom");
       if (zoomOptions.hasValue(zoomSel)) {
         // shave off the % symbol at the end
         zoomSel = zoomSel.substring(0, zoomSel.length() - 1);
         return PApplet.parseInt(zoomSel, 100) / 100f;
 
       } else {
-        AppPreferences.set("editor.zoom", "100%");
+        Preferences.set("editor.zoom", "100%");
         return 1;
       }
     }
@@ -1181,7 +1181,7 @@ public class Toolkit {
     // Using AffineTransform.getScaleInstance(100, 100) doesn't change sizes
     FontRenderContext frc =
       new FontRenderContext(new AffineTransform(),
-                            AppPreferences.getBoolean("editor.antialias"),
+                            Preferences.getBoolean("editor.antialias"),
                             true);  // use fractional metrics
     for (Font font : fonts) {
       if (font.getStyle() == Font.PLAIN &&
@@ -1262,7 +1262,7 @@ public class Toolkit {
           monoBoldFont = initFont("SourceCodePro-Bold.ttf", size);
         }
       } catch (Exception e) {
-        AppMessages.err("Could not load mono font", e);
+        Messages.err("Could not load mono font", e);
       }
     }
 
@@ -1308,7 +1308,7 @@ public class Toolkit {
           sansBoldFont = initFont("ProcessingSans-Bold.ttf", size);
         }
       } catch (Exception e) {
-        AppMessages.err("Could not load sans font", e);
+        Messages.err("Could not load sans font", e);
       }
     }
 
@@ -1338,7 +1338,7 @@ public class Toolkit {
    * Load a built-in font from the Processing lib/fonts folder and register
    * it with the GraphicsEnvironment so that it's broadly available.
    * (i.e. shows up in getFontList() works, so it appears in the list of fonts
-   * in the AppPreferences window, and can be used by HTMLEditorKit for WebFrame.)
+   * in the Preferences window, and can be used by HTMLEditorKit for WebFrame.)
    */
   static private Font initFont(String filename, int size) throws IOException, FontFormatException {
     File fontFile = Platform.getContentFile("lib/fonts/" + filename);
@@ -1354,7 +1354,7 @@ public class Toolkit {
       } else {
         msg += "Please reinstall Processing.";
       }
-      AppMessages.showError("Font Sadness", msg, null);
+      Messages.showError("Font Sadness", msg, null);
     }
 
     BufferedInputStream input = new BufferedInputStream(new FileInputStream(fontFile));

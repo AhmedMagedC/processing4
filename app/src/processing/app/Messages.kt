@@ -19,8 +19,6 @@
 package processing.app
 
 import processing.app.ui.Toolkit
-import processing.utils.Messages
-
 import java.awt.EventQueue
 import java.awt.Frame
 import java.io.PrintWriter
@@ -28,7 +26,7 @@ import java.io.StringWriter
 import javax.swing.JFrame
 import javax.swing.JOptionPane
 
-class AppMessages : Messages() {
+class Messages : processing.utils.Messages() {
     companion object {
         /**
          * Non-fatal error message with two levels of formatting.

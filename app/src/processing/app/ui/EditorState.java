@@ -29,7 +29,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.util.List;
 
-import processing.app.AppPreferences;
+import processing.app.Preferences;
 
 
 /**
@@ -129,9 +129,9 @@ public class EditorState {
     Rectangle deviceBounds = deviceConfig.getBounds();
 
     int defaultWidth =
-      Toolkit.zoom(AppPreferences.getInteger("editor.window.width.default"));
+      Toolkit.zoom(Preferences.getInteger("editor.window.width.default"));
     int defaultHeight =
-      Toolkit.zoom(AppPreferences.getInteger("editor.window.height.default"));
+      Toolkit.zoom(Preferences.getInteger("editor.window.height.default"));
 
     defaultWidth = Math.min(defaultWidth, deviceBounds.width);
     defaultHeight = Math.min(defaultHeight, deviceBounds.height);

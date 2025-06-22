@@ -27,7 +27,7 @@ import com.sun.jdi.LocalVariable;
 import com.sun.jdi.StackFrame;
 import com.sun.jdi.Value;
 
-import processing.app.AppMessages;
+import processing.app.Messages;
 
 
 /**
@@ -52,7 +52,7 @@ public class LocalVariableNode extends VariableNode {
     try {
       frame.setValue(var, value);
     } catch (InvalidTypeException | ClassNotLoadedException ex) {
-      AppMessages.err(null, ex);
+      Messages.err(null, ex);
     }
     this.value = value;
   }

@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import processing.app.Base;
-import processing.app.AppMessages;
+import processing.app.Messages;
 import processing.app.Mode;
 import processing.utils.Util;
 
@@ -52,7 +52,7 @@ public class ModeContribution extends LocalContribution {
       return new ModeContribution(base, folder, searchName);
 
     } catch (IgnorableException ig) {
-      AppMessages.log(ig.getMessage());
+      Messages.log(ig.getMessage());
 
     } catch (Throwable err) {
       // Throwable to catch Exceptions or UnsupportedClassVersionError et al.
@@ -65,7 +65,7 @@ public class ModeContribution extends LocalContribution {
         // For the built-in modes, don't print the exception, just log it
         // for debugging. This should be impossible for most users to reach,
         // but it helps us load experimental mode when it's available.
-        AppMessages.err("ModeContribution.load() failed for " + searchName, err);
+        Messages.err("ModeContribution.load() failed for " + searchName, err);
       }
     }
     return null;
@@ -83,7 +83,7 @@ public class ModeContribution extends LocalContribution {
     className = initLoader(base, className);
     if (className != null) {
       Class<?> modeClass = loader.loadClass(className);
-      AppMessages.log("Got mode class " + modeClass);
+      Messages.log("Got mode class " + modeClass);
       Constructor<?> con = modeClass.getConstructor(Base.class, File.class);
       mode = (Mode) con.newInstance(base, folder);
       mode.setClassLoader(loader);
@@ -123,7 +123,7 @@ public class ModeContribution extends LocalContribution {
   private String initLoader(Base base, String className) throws Exception {
     File modeDirectory = new File(folder, getTypeName());
     if (modeDirectory.exists()) {
-      AppMessages.log("checking mode folder regarding class name " + className);
+      Messages.log("checking mode folder regarding class name " + className);
       // If no class name specified, search the main <ModeName>.jar for the
       // full name package and mode name.
       if (className == null) {
@@ -154,7 +154,7 @@ public class ModeContribution extends LocalContribution {
 
         for (String modeImport : imports) {
           if (installedModes.containsKey(modeImport)) {
-            AppMessages.log("Found mode dependency " + modeImport);
+            Messages.log("Found mode dependency " + modeImport);
             File modeFolder = installedModes.get(modeImport).getFolder();
             File[] archives = Util.listJarFiles(new File(modeFolder, "mode"));
             if (archives != null) {
@@ -184,12 +184,12 @@ public class ModeContribution extends LocalContribution {
         }
 
         for (int k = 0; k < archives.length; k++,j++) {
-          AppMessages.log("Found archive " + archives[k] + " for " + getName());
+          Messages.log("Found archive " + archives[k] + " for " + getName());
           urlList[j] = archives[k].toURI().toURL();
         }
 
         loader = new URLClassLoader(urlList);
-        AppMessages.log("loading above JARs with loader " + loader);
+        Messages.log("loading above JARs with loader " + loader);
       }
     }
 

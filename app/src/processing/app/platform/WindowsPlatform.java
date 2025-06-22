@@ -208,7 +208,7 @@ public class WindowsPlatform extends DefaultPlatform {
    */
   protected void checkAssociations() {
     try {
-      if (AppPreferences.getBoolean(AUTO_ASSOCIATE_PREF)) {
+      if (Preferences.getBoolean(AUTO_ASSOCIATE_PREF)) {
         for (Association assoc : ASSOCIATIONS) {
           // Check the key that should be set by a previous run of the PDE
           String knownCommand =
@@ -256,9 +256,9 @@ public class WindowsPlatform extends DefaultPlatform {
   protected void setAssociations() throws UnsupportedEncodingException {
     for (Association assoc : ASSOCIATIONS) {
       if (!assoc.register()) {
-        AppMessages.log("Could not associate " + assoc.extension + "files, " +
+        Messages.log("Could not associate " + assoc.extension + "files, " +
                      "turning off auto-associate pref.");
-        AppPreferences.setBoolean("platform.auto_file_type_associations", false);
+        Preferences.setBoolean("platform.auto_file_type_associations", false);
       }
     }
   }
@@ -267,7 +267,7 @@ public class WindowsPlatform extends DefaultPlatform {
   protected void setSchemes() throws UnsupportedEncodingException {
     for (String scheme : APP_SCHEMES) {
       if (!registerScheme(scheme)) {
-        AppMessages.log("Error while trying to associate " + scheme + ":// URLs.");
+        Messages.log("Error while trying to associate " + scheme + ":// URLs.");
       }
     }
   }
@@ -589,7 +589,7 @@ public class WindowsPlatform extends DefaultPlatform {
       try {
         clib = Native.load("msvcrt", WinLibC.class);
       } catch (UnsatisfiedLinkError ule) {
-        AppMessages.showTrace("JNA Error",
+        Messages.showTrace("JNA Error",
                            "JNA could not be loaded. Please report here:\n" +
                            "http://github.com/processing/processing/issues/new", ule, true);
 

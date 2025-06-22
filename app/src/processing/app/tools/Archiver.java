@@ -68,7 +68,7 @@ public class Archiver implements Tool {
     Sketch sketch = editor.getSketch();
 
     if (sketch.isModified()) {
-      AppMessages.showWarning("Save", "Please save the sketch before archiving.");
+      Messages.showWarning("Save", "Please save the sketch before archiving.");
       return;
     }
 

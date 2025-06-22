@@ -255,19 +255,19 @@ public class Runner implements MessageConsumer {
 //      while (!available) {
       while (true) {
         try {
-          AppMessages.log("attempting to attach to VM");
+          Messages.log("attempting to attach to VM");
           synchronized (cancelLock) {
             vm = connector.attach(arguments);
             if (cancelled && vm != null) {
               // cancelled and connected to the VM, handle closing now
-              AppMessages.log("aborting, launch cancelled");
+              Messages.log("aborting, launch cancelled");
               close();
               return false;
             }
           }
 //          vm = connector.attach(arguments);
           if (vm != null) {
-            AppMessages.log("attached to the VM");
+            Messages.log("attached to the VM");
 //            generateTrace();
 //            available = true;
             return true;
@@ -275,17 +275,17 @@ public class Runner implements MessageConsumer {
         } catch (ConnectException ce) {
           // This will fire ConnectException (socket not available) until
           // the VM finishes starting up and opens its socket for us.
-          AppMessages.log("socket for VM not ready");
+          Messages.log("socket for VM not ready");
 //          System.out.println("waiting");
 //          e.printStackTrace();
           try {
             Thread.sleep(100);
           } catch (InterruptedException ie) {
-            AppMessages.err("interrupted", ie);
+            Messages.err("interrupted", ie);
 //            ie.printStackTrace(sketchErr);
           }
         } catch (IOException e) {
-          AppMessages.err("while attaching to VM", e);
+          Messages.err("while attaching to VM", e);
         }
       }
 //    } catch (IOException exc) {
@@ -542,7 +542,7 @@ public class Runner implements MessageConsumer {
 
           if (errorStrings != null && errorStrings.length > 1) {
             if (errorStrings[0].contains("Invalid maximum heap size")) {
-              AppMessages.showWarning("Way Too High",
+              Messages.showWarning("Way Too High",
                                    "Please lower the value for \u201Cmaximum available memory\u201D in the\n" +
                                    "Preferences window. For more information, read Help \u2192 Troubleshooting.", null);
             } else {
@@ -693,7 +693,7 @@ public class Runner implements MessageConsumer {
         return connector;
       }
     }
-    AppMessages.showError("Compiler Error",
+    Messages.showError("Compiler Error",
                        "findConnector() failed to find " +
                        connectorName + " inside Runner", null);
     return null; // Not reachable

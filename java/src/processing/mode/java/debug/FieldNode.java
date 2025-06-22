@@ -27,7 +27,7 @@ import com.sun.jdi.InvalidTypeException;
 import com.sun.jdi.ObjectReference;
 import com.sun.jdi.Value;
 
-import processing.app.AppMessages;
+import processing.app.Messages;
 
 
 /**
@@ -56,9 +56,9 @@ public class FieldNode extends VariableNode {
     try {
       obj.setValue(field, value);
     } catch (InvalidTypeException ite) {
-      AppMessages.err(null, ite);
+      Messages.err(null, ite);
     } catch (ClassNotLoadedException cnle) {
-      AppMessages.err(null, cnle);
+      Messages.err(null, cnle);
     }
     this.value = value;
   }

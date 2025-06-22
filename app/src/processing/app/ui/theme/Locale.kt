@@ -3,7 +3,6 @@ package processing.app.ui.theme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
-import processing.app.AppMessages
 import processing.app.Platform
 import processing.app.PlatformStart
 import processing.app.watchFile
